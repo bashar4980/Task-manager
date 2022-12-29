@@ -2,12 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+
 import reportWebVitals from './reportWebVitals';
+import Authcontext from './Authcontext/Authcontext';
+// import Authcontext from './Authcontext/Authcontext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+   <Authcontext>
+    <App/>
+   </Authcontext>
   </React.StrictMode>
 );
 
