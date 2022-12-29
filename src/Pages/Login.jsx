@@ -4,11 +4,33 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../Authcontext/Authcontext";
 
 const Login = () => {
-  const { ProviderSignin } = useContext(UserContext);
+  const { ProviderSignin , signinWithEmail } = useContext(UserContext);
+  const navigate = useNavigate()
+
+  //signinWithEmail
+  const submitHandeler = (event) =>{
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    signinWithEmail(email,password)
+    .then(result=>{
+      const user = result.user;
+      console.log(user)
+      form.reset()
+      navigate("/")
+
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+    
+  }
 
   //Signin with google
   const provider = new GoogleAuthProvider();
-  const navigate = useNavigate();
+
+
 
   const signinWithGoogle = () => {
     ProviderSignin(provider)
@@ -27,7 +49,7 @@ const Login = () => {
             Please Login
           </h1>
 
-          <form action="" className="">
+          <form  onSubmit={submitHandeler}>
             <p className="text-lg text-center my-3 font-medium">
               Sign in to your account
             </p>
@@ -41,6 +63,7 @@ const Login = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   className="w-full  border rounded-lg border-gray-300 mb-5 p-4 pr-12 text-sm shadow-sm"
                   placeholder="Enter email"
                 />
@@ -68,6 +91,7 @@ const Login = () => {
                 <input
                   type="password"
                   id="password"
+                  name="password"
                   className="w-full  border rounded-lg border-gray-300 mb-5 p-4 pr-12 text-sm shadow-sm"
                   placeholder="Enter password"
                 />
@@ -86,14 +110,15 @@ const Login = () => {
                 </span>
               </div>
             </div>
-          </form>
-
-          <button
+            <button
             type="submit"
             className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
           >
             Sign in
           </button>
+          </form>
+
+        
 
           <div className="flex items-center pt-4 space-x-1">
             <div className="flex-1 h-px sm:w-16 bg-gray-700"></div>

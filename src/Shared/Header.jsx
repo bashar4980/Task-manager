@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../Authcontext/Authcontext";
 
 const Header = () => {
+  const {user , logOut} = useContext(UserContext);
+  const logOutUser =()=>{
+    logOut()
+    .then(()=>{
+       alert("logout successfully")
+    })
+    .catch((error)=>{
+
+    })
+  }
   return (
     <div>
       <header aria-label="Site Footer" className="bg-gray-50">
@@ -57,16 +68,15 @@ const Header = () => {
               </svg>
             </div>
             <ul className="flex items-center justify-center gap-6 text-sm">
-              {/* <li>
-            <a className="text-gray-500 transition hover:text-gray-500/75" href="/">
-              About
-            </a>
-          </li> */}
+          
               <Link to="/">Add Task</Link>
               <Link to="/mytask">My Task</Link>
               <Link to="/complete">Completed Task</Link>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
+              {
+                user?.uid ? <><li onClick={logOutUser}><Link>Logout</Link></li></> : <><Link to="/login">Login</Link>
+                <Link to="/signup">Signup</Link></>
+              }
+
             </ul>
           </div>
         </div>
