@@ -68,8 +68,8 @@ const Header = () => {
               </svg>
             </div>
             <ul className="flex items-center justify-center gap-6 text-sm">
-          
-              <Link to="/">Add Task</Link>
+               <Link to="/">Home</Link>
+              <Link to="/addtask">Add Task</Link>
               <Link to="/mytask">My Task</Link>
               <Link to="/complete">Completed Task</Link>
               {

@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import { UserContext } from "../Authcontext/Authcontext";
 import Reminder from "../Components/Reminder";
 
-const Home = () => {
+
+
+const AddTask= () => {
   const {user} = useContext(UserContext)
   return (
     <div>
@@ -23,7 +25,7 @@ const Home = () => {
           action=""
           className="mt-6 mb-0 space-y-4 rounded-lg p-8 "
         >
-          <p className="text-2xl font-medium text-center">Add Task</p>
+          <p className="text-lg font-medium">Add Task</p>
 
           <div>
             <label htmlFor="text" className="text-sm font-medium">
@@ -40,7 +42,26 @@ const Home = () => {
             </div>
           </div>
 
-      
+          <div>
+            <label htmlFor="files" className="block text-sm font-medium mb-5">
+              Add Task photo
+            </label>
+            <div className="flex">
+              <input
+                type="file"
+                name="files"
+                id="files"
+                className="w-full px-8 py-5 border-2 border-dashed rounded-md border-gray-700 text-gray-400 "
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+          >
+            Add task
+          </button>
         </form></> : <><Reminder></Reminder></>
          }
         </div>
@@ -49,4 +70,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AddTask;

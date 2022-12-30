@@ -5,14 +5,23 @@ import App from './App';
 
 import reportWebVitals from './reportWebVitals';
 import Authcontext from './Authcontext/Authcontext';
+import {
+
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 // import Authcontext from './Authcontext/Authcontext';
+const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <Authcontext>
+    <QueryClientProvider client={queryClient}>
+    <Authcontext>
     <App/>
    </Authcontext>
+    </QueryClientProvider>
+   
   </React.StrictMode>
 );
 

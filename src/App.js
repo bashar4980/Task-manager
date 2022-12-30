@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from './layout/Main';
+import AddTask from './Pages/AddTask';
 import Completed from './Pages/Completed';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
@@ -30,6 +31,11 @@ const router = createBrowserRouter([{
   {
     path:"/complete",
     element:<Completed></Completed>
+  }
+  ,
+  {
+    path:"/addtask",
+    element:<AddTask></AddTask>
   }
   ]
 
