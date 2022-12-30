@@ -89,6 +89,12 @@ const completeTask = id =>{
                       <p className="mt-1 text-xs font-medium text-gray-300">
                         {task?.task_name}
                       </p>
+
+                      <img
+              src={task?.img  && task?.img}
+              alt=""
+              class="object-cover w-16 h-16 rounded"
+            />
     
                       <Modal task={task} refetch={refetch}></Modal>
                       <button

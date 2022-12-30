@@ -1,0 +1,39 @@
+.light{
+    background: #000!important;
+    color: #fff!important;
+}
+.main_class{
+    position: relative;
+}
+.mobile{
+    position: absolute;
+    right: -300px;
+    padding: 10px;
+    top: 100px;
+    width: 250px;
+    height: 50vh;
+    background:#F9FAFB;
+    display: none;
+    
+   
+  
+}
+
+
+
+@media screen and (max-width:767px){
+    .desktop{
+        display: none;
+    }
+    .show{
+        display: block;
+        right: 0px;
+       
+        
+    }
+    .hide{
+        display: none;
+    }
+  
+   
+}
