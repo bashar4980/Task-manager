@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 
 import { UserContext } from "../Authcontext/Authcontext";
+import Modal from "../Components/Modal";
 
 const Mytask = () => {
   const { user } = useContext(UserContext);
@@ -55,7 +56,7 @@ const completeTask = id =>{
 
   if (isLoading) {
     return (
-      <div className="mx-auto w-16 h-16 border-4 border-dashed rounded-full t animate-spin border-primary"></div>
+      <div className="mx-auto w-16 h-16 border-4 border-dashed rounded-full t animate-spin border-indigo-600"></div>
     );
 
     //delete_Task
@@ -89,9 +90,7 @@ const completeTask = id =>{
                         {task?.task_name}
                       </p>
     
-                      <button className="rounded border border-indigo-600 bg-indigo-600 px-5 mr-2 text-white mt-2 ">
-                        Update
-                      </button>
+                      <Modal task={task} refetch={refetch}></Modal>
                       <button
                         onClick={() => deleteTask(task._id)}
                         className="rounded border border-indigo-600 bg-indigo-600 px-5 mr-2  text-white mt-2 "
