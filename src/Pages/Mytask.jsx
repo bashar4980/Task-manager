@@ -4,32 +4,52 @@ import React, { useContext } from "react";
 import { UserContext } from "../Authcontext/Authcontext";
 
 const Mytask = () => {
-  const {user} = useContext(UserContext);
-  
-  const {data:myTask , isLoading , refetch} = useQuery({
-    queryKey:["task"],
-    queryFn: async()=>{
+  const { user } = useContext(UserContext);
+
+  const {
+    data: myTask,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["task"],
+    queryFn: async () => {
       const res = await fetch(`http://localhost:5000/task/${user?.email}`);
       const data = await res.json();
-      return data
-    }
-  })
-
- const deleteTask =(id)=>{
-        fetch(`http://localhost:5000/deletetask/${id}` , {
-          method: 'DELETE',
-          
-        })
-        .then(res => res.json())
-        .then(data=>{
-          if(data.deletedCount > 0){
-            alert("deleted")
-            refetch()
-            
+      return data;
+    },
+  });
+//delete task
+  const deleteTask = (id) => {
+    fetch(`http://localhost:5000/deletetask/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          alert("deleted");
+          refetch();
         }
-          
-        })
- }
+      });
+  };
+
+//complete task
+
+const completeTask = id =>{
+  
+   
+    fetch(`http://localhost:5000/complete/${id}`,{
+      method:"PUT"
+    })
+    .then(res=>res.json())
+    .then(data=>{
+   
+      if(data.acknowledged){
+        alert("completed")
+        refetch()
+      }
+       
+    })
+  }
 
 
 
@@ -39,7 +59,6 @@ const Mytask = () => {
     );
 
     //delete_Task
-  
   }
   return (
     <div className="mx-auto max-w-[780px] px-4 py-16 sm:px-6 lg:px-8">
@@ -48,49 +67,49 @@ const Mytask = () => {
       </h1>
       <article className="rounded-xl border border-gray-700 bg-gray-800 p-4">
         <div className="flex items-center">
-         
-
           <div className="ml-3">
-            <h3 className="text-lg font-medium text-white">{user?.displayName}</h3>
+            <h3 className="text-lg font-medium text-white">
+              {user?.displayName}
+            </h3>
           </div>
         </div>
 
         <ul className="mt-4 space-y-2">
-       {
-        myTask.map(task=>{
+          {myTask.map((task) => {
+            return (
+              <>
+               {
 
-          return(
-         
-            
-            <li key={task._id}>
-            <div className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
-              <strong className="font-medium text-white">Task Name:</strong>
-             
-
-              <p  className="mt-1 text-xs font-medium text-gray-300">
-                {
-                  task?.task_name
-                }
-              </p>
+                    task?.status===false && 
+                    <li key={task._id}>
+                    <div className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
+                      <strong className="font-medium text-white">Task Name:</strong>
+    
+                      <p className="mt-1 text-xs font-medium text-gray-300">
+                        {task?.task_name}
+                      </p>
+    
+                      <button className="rounded border border-indigo-600 bg-indigo-600 px-5 mr-2 text-white mt-2 ">
+                        Update
+                      </button>
+                      <button
+                        onClick={() => deleteTask(task._id)}
+                        className="rounded border border-indigo-600 bg-indigo-600 px-5 mr-2  text-white mt-2 "
+                      >
+                        Delete
+                      </button>
+                      <button onClick={()=>completeTask(task._id)} className="rounded border border-indigo-600 bg-indigo-600 px-5 text-white mt-2 ">
+                        Completed
+                      </button>
+                    </div>
+                  </li>
               
-
-              <button className="rounded border border-indigo-600 bg-indigo-600 px-5 mr-2 text-white mt-2 ">
-                Update
-              </button>
-              <button onClick={()=>deleteTask(task._id)} className="rounded border border-indigo-600 bg-indigo-600 px-5 mr-2  text-white mt-2 ">
-                Delete
-              </button>
-              <button className="rounded border border-indigo-600 bg-indigo-600 px-5 text-white mt-2 ">
-                Completed
-              </button>
-            </div>
-          </li>
-            
-            
-     
-          )
-        })
-       }
+               }
+              
+              
+              </>
+            );
+          })}
         </ul>
       </article>
     </div>
